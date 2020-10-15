@@ -17,6 +17,7 @@ import android.widget.TextView;
  */
 public class DetalleFragment extends Fragment {
 
+    public static String ARS_ID_LIBRO = "id_libro";
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -63,10 +64,24 @@ public class DetalleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_detalle, container, false);
-        titulo = v.findViewById(R.id.detalle_titulo);
-        autor = v.findViewById(R.id.detalle_autor);
-        portada = v.findViewById(R.id.detalle_portada);
-        return v;
+        View vista = inflater.inflate(R.layout.fragment_detalle, container, false);
+        titulo = vista.findViewById(R.id.detalle_titulo);
+        autor = vista.findViewById(R.id.detalle_autor);
+        portada = vista.findViewById(R.id.detalle_portada);
+        Bundle args = getArguments();
+        if (args!=null){
+            int posicion = args.getInt(ARS_ID_LIBRO);
+            ponInfoLibro(posicion, vista);
+        }else {
+            ponInfoLibro(0, vista);
+        }
+        return vista;
+    }
+
+    private void ponInfoLibro(int id, View vista){
+        Libro libro = Libro.ejemploLibros().elementAt(id);
+        titulo.setText(libro.titulo);
+        autor.setText(libro.autor);
+        portada.setImageResource(libro.recursoImagen);
     }
 }
