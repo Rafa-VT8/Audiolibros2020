@@ -8,22 +8,17 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
-    RecyclerView.LayoutManager layoutManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recyclerView = findViewById(R.id.recycler);
+        SelectorFragment selectorFregment = new SelectorFragment();
 
-        layoutManager = new GridLayoutManager(this, 2);
-
-        recyclerView.setLayoutManager(layoutManager);
-
-        AdaptadorLibros adaptadorLibros = new AdaptadorLibros(this, Libro.ejemploLibros());
-        recyclerView.setAdapter(adaptadorLibros);
-
+        if (findViewById(R.id.contenedor_pequeno)!=null){
+            getSupportFragmentManager().beginTransaction().add(R.id.contenedor_pequeno, selectorFregment).commit();
+        }
 
     }
 }
