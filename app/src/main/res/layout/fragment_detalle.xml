@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetalleFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/detalle_titulo"
+        android:text="Titulo"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="@android:style/TextAppearance.Large">
+    </TextView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Autor"
+        android:id="@+id/detalle_autor"
+        android:layout_below="@id/detalle_titulo"
+        android:layout_centerHorizontal="true"></TextView>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/detalle_portada"
+        android:src="@mipmap/ic_launcher"
+        android:layout_below="@id/detalle_autor"
+        android:layout_centerHorizontal="true"></ImageView>
+
+</RelativeLayout>
