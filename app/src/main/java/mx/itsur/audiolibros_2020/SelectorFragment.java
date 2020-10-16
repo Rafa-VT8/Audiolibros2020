@@ -1,7 +1,9 @@
 package mx.itsur.audiolibros_2020;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +27,7 @@ public class SelectorFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    MainActivity mainActivity;
 
     public SelectorFragment() {
         // Required empty public constructor
@@ -49,6 +52,12 @@ public class SelectorFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mainActivity = (MainActivity) context;
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -68,6 +77,21 @@ public class SelectorFragment extends Fragment {
         layoutManager = new GridLayoutManager(getActivity(), 2);
         recyvler.setLayoutManager(layoutManager);
         AdaptadorLibros adaptadorLibros = new AdaptadorLibros(getActivity(), Libro.ejemploLibros());
+
+        adaptadorLibros.setOnClickListener(
+                vl -> {
+                    mainActivity.mostrarDetalle(recyvler.getChildAdapterPosition(vl));
+                }
+
+        );
+
+        adaptadorLibros.setOnItemLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                return false;
+            }
+        });
+
 
         recyvler.setAdapter(adaptadorLibros);
 
