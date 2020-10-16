@@ -17,7 +17,8 @@ public class MainActivity extends AppCompatActivity {
 
         SelectorFragment selectorFregment = new SelectorFragment();
 
-        if (findViewById(R.id.contenedor_pequeno)!=null){
+        if (findViewById(R.id.contenedor_pequeno)!=null &&
+                getSupportFragmentManager().findFragmentById(R.id.contenedor_pequeno) == null){
             getSupportFragmentManager().beginTransaction().add(R.id.contenedor_pequeno, selectorFregment).commit();
         }
 
@@ -25,7 +26,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void mostrarDetalle(int index){
         FragmentManager fragmentManager= getSupportFragmentManager();
-        if (fragmentManager.findFragmentById(R.id.fragment_detalle)!=null){
+        if (fragmentManager.findFragmentById(R.id.fragment_detalle)!=null ){
+
+            DetalleFragment detalleFragment = (DetalleFragment) fragmentManager.findFragmentById(R.id.fragment_detalle);
+            detalleFragment.ponInfoLibro(index);
 
         }else{
             DetalleFragment detalleFragment = new DetalleFragment();

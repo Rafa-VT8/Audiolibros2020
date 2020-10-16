@@ -1,6 +1,8 @@
 package mx.itsur.audiolibros_2020;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +31,7 @@ public class SelectorFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     MainActivity mainActivity;
+    Context context;
 
     public SelectorFragment() {
         // Required empty public constructor
@@ -54,7 +58,11 @@ public class SelectorFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        mainActivity = (MainActivity) context;
+        this.context = context;
+        if (context instanceof MainActivity){
+            mainActivity = (MainActivity) context;
+        }
+
     }
 
     @Override
@@ -84,6 +92,23 @@ public class SelectorFragment extends Fragment {
                 }
 
         );
+
+        adaptadorLibros.setOnItemLongClickListener(vi -> {
+            AlertDialog.Builder cuadroDialogo = new AlertDialog.Builder(context);
+            cuadroDialogo.setTitle("Seleccionar la opcion");
+            //cuadroDialogo.setMessage("este es un cuadro de dialogo");
+            cuadroDialogo.setItems(new String[]{"Compartir", "Eliminar", "Agregar"}, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Toast.makeText(context, "Opcion seleccionada "+i,Toast.LENGTH_LONG).show();
+
+                }
+            });
+
+            cuadroDialogo.create().show();
+
+            return false;
+        });
 
         adaptadorLibros.setOnItemLongClickListener(new View.OnLongClickListener() {
             @Override
